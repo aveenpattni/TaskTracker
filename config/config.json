@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "root",
+    "password": "root",
+    "database": "TaskTracker_dev",
+    "host": "localhost",
+    "port": 8889,
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "root",
+    "database": "TaskTracker_prod",
+    "host": "localhost",
+    "port": 8889,
+    "dialect": "mysql"
+  }
+}
