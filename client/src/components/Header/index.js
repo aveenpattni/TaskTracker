@@ -10,13 +10,13 @@ const HeaderWrapper = styled.div`
 const HomeButton = styled(Link)``;
 const LogoutButton = styled(Link)``;
 
-export const Header = ({logout, isLoggedIn}) => {
-  console.log(isLoggedIn);
+export const Header = ({logout, isLoggedIn, user}) => {
   return (
     <HeaderWrapper>
       Header
       <HomeButton to="/">Home</HomeButton>
-      {isLoggedIn? <LogoutButton onClick={logout}>Sign Out</LogoutButton> : null}
+      {isLoggedIn ? <LogoutButton onClick={logout}>Sign Out</LogoutButton> : null}
+      {isLoggedIn ? user.firstName : null}
     </HeaderWrapper>
   )
 }

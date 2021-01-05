@@ -100,7 +100,7 @@ class App extends React.Component {
   render() {
     return (
       <AppWrapper>
-        <Header isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
+        <Header user={this.state.user} isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
         <Switch>
           <Route path="/" exact render={() => { return this.state.isLoggedIn ? <Redirect to='/todo' /> : <Redirect to='/login' /> }} />
           <Route path="/login" >
