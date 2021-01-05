@@ -16,7 +16,8 @@ router.post("/add", (req, res) => {
     title,
     description,
     priority,
-    due
+    due,
+    status: 0
   })
   .then(task => res.status(200).json({status: "success"}))
   .catch(err => {
@@ -26,9 +27,9 @@ router.post("/add", (req, res) => {
 });
 
 router.put("/update", (req, res) => {
-  const {uID, title, description, priority, due, id} = req.body;
+  const {title, description, priority, due, id, status} = req.body;
 
-  Tasks.update({title, description, priority, due}, {
+  Tasks.update({title, description, priority, due, status}, {
     where: {
       id
     }
