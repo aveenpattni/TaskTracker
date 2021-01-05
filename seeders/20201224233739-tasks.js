@@ -18,6 +18,7 @@ module.exports = {
       description: "Finish all end points and database for Task Tracker",
       priority: 1,
       due: new Date(),
+      status: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -27,6 +28,7 @@ module.exports = {
       description: "Add login and task page. Create tasks with a modal. Edit taks with a separeate modal.",
       priority: 2,
       due: new Date(),
+      status: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     }])

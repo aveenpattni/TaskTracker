@@ -10,10 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     priority: DataTypes.INTEGER,
     due: DataTypes.DATE,
+    status: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
   }, {});
   Tasks.associate = function(models) {
+    Tasks.belongsTo(models.users, {
+      foreignKey: "uID",
+      onDelete: "CASCADE"
+    });
   };
   return Tasks;
 };

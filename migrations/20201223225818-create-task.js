@@ -25,6 +25,9 @@ module.exports = {
       due: {
         type: Sequelize.DATE
       },
+      status: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
