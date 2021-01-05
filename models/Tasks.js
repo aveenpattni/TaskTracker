@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: DataTypes.DATE
   }, {});
   Tasks.associate = function(models) {
-    Tasks.belongsTo(models.users, {
+    Tasks.belongsTo(models.Users, {
       foreignKey: "uID",
       onDelete: "CASCADE"
     });
