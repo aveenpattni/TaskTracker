@@ -19,7 +19,7 @@ router.post("/add", (req, res) => {
     due,
     status: 0
   })
-  .then(task => res.status(200).json({status: "success"}))
+  .then(task => res.status(200).json({status: "success", task}))
   .catch(err => {
     console.log("🔥", err);
     res.status(500).json({status: "failure"})
@@ -42,6 +42,7 @@ router.put("/update", (req, res) => {
 });
 
 router.delete("/remove", (req, res) => {
+  console.log("💧", req);
   Tasks.destroy({
     where: { id: req.query.id}
   })

@@ -6,6 +6,7 @@ import { ModalWrapper } from "../components/Modal";
 import { TaskForm } from "../components/TaskForm";
 
 const ToDoWrapper = styled.div``;
+const DeleteButton = styled.button``;
 
 export const ToDoPage = ({authenticate, user}) => {
   const [taskList, setTaskList] = useState([]);
@@ -50,12 +51,28 @@ export const ToDoPage = ({authenticate, user}) => {
     };
     axios(taskConfig)
       .then(res => {
-        console.log(res.data);
+        const newTask = res.data.task;
+        toggleModal(false);
         // Fix this below
-        setTaskList(taskList + task);
+        setTaskList(taskList.concat([newTask]));
       })
       .catch(err => console.log(err))
   };
+
+  const deleteTask = task => {
+    const token = localStorage.getItem("jwt") || '';
+    const taskConfig = {
+      method: "delete",
+      url: `/task/remove?id=${task}`,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token
+      }
+    };
+    axios(taskConfig)
+      .then(res => setTaskList(taskList.filter(i => i.id !== task)))
+      .catch(err => console.log(err))
+  }
 
   return (
     <ToDoWrapper>
@@ -63,7 +80,13 @@ export const ToDoPage = ({authenticate, user}) => {
       <button onClick={newTaskClick}>New Task</button>
       {isModalOpen ? <ModalWrapper><TaskForm addTask={addTask} /></ModalWrapper> : null}
       {taskList.length > 0 ? taskList.map(item => {
-        return <h5>{item.title}</h5>
+        const onDelete = () => deleteTask(item.id)
+        return (
+        <>
+          <h5>{item.title}</h5>
+          <DeleteButton onClick={onDelete}>Delete</DeleteButton>
+        </>
+        )
       }) : null}
     </ToDoWrapper>
   )

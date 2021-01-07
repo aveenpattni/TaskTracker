@@ -10,12 +10,10 @@ router.use(isAuthenticated);
 
 router.get("/", (req, res) => {
   const uID = req.user.user.id;
-  console.log("🔥🔥🔥🔥", uID);
   Tasks.findAll({
     where: {uID}
   })
   .then(tasks => {
-    console.log("🔥🔥🔥🔥", tasks);
     res.status(200).json(tasks)
   })
   .catch(err => {

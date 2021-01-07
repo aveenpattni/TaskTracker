@@ -34,7 +34,7 @@ export class TaskForm extends React.Component {
           <FormOption value="4">4</FormOption>
         </FormSelect>
         <FormLabel>Due Date:</FormLabel>
-        <FormInput name="taskDD" type="date" />
+        <FormInput name="taskDD" type="date" required/>
         <FormButton type="submit">Add Task</FormButton>
       </TaskFormWrapper>
     )
