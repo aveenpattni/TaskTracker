@@ -21,7 +21,8 @@
     "bootstrap": "yarn && cd client && yarn && yarn run build",
     "start": "nodemon .",
     "start-client": "cd client && yarn start",
-    "build": "cd client && yarn run build"
+    "build": "cd client && yarn run build",
+    "build-start": "cd client && yarn run build && cd .. && nodemon ."
   },
   "proxy": "http://localhost:8000"
 }

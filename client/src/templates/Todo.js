@@ -4,13 +4,33 @@ import units from "design-units";
 import axios from "axios";
 import { ModalWrapper } from "../components/Modal";
 import { TaskForm } from "../components/TaskForm";
+import { Task } from "../components/Task";
 
-const ToDoWrapper = styled.div``;
+const ToDoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+const ToDoShell = styled.div`
+  width: 100%;
+  max-width: 1080px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const TaskHeader = styled.h1`
+  margin: 16px;
+`;
+const NewTask = styled.button`
+  align-self: flex-start;
+`;
 const DeleteButton = styled.button``;
+const UpdateButton = styled.button``;
 
 export const ToDoPage = ({authenticate, user}) => {
   const [taskList, setTaskList] = useState([]);
-  const [isModalOpen, toggleModal] = useState(false);
+  const [isTaskModalOpen, toggleTaskModal] = useState(false);
 
   useEffect(() => {
     authenticate();
@@ -28,7 +48,10 @@ export const ToDoPage = ({authenticate, user}) => {
   }, []);
 
   const newTaskClick = e => {
-    toggleModal(true);
+    toggleTaskModal(true);
+  }
+  const closeNewTask = e => {
+    toggleTaskModal(false);
   }
   const addTask = e => {
     e.preventDefault();
@@ -52,7 +75,7 @@ export const ToDoPage = ({authenticate, user}) => {
     axios(taskConfig)
       .then(res => {
         const newTask = res.data.task;
-        toggleModal(false);
+        toggleTaskModal(false);
         // Fix this below
         setTaskList(taskList.concat([newTask]));
       })
@@ -72,22 +95,30 @@ export const ToDoPage = ({authenticate, user}) => {
     axios(taskConfig)
       .then(res => setTaskList(taskList.filter(i => i.id !== task)))
       .catch(err => console.log(err))
+  };
+
+  const updateTask = task => {
+    console.log(task);
   }
 
   return (
     <ToDoWrapper>
-      ToDo Page
-      <button onClick={newTaskClick}>New Task</button>
-      {isModalOpen ? <ModalWrapper><TaskForm addTask={addTask} /></ModalWrapper> : null}
-      {taskList.length > 0 ? taskList.map(item => {
-        const onDelete = () => deleteTask(item.id)
-        return (
-        <>
-          <h5>{item.title}</h5>
-          <DeleteButton onClick={onDelete}>Delete</DeleteButton>
-        </>
-        )
-      }) : null}
+      <ToDoShell>
+        <TaskHeader>Track your Tasks</TaskHeader>
+        <NewTask onClick={newTaskClick}>
+          New Task
+        </NewTask>
+
+        {taskList.length > 0 ? taskList.map(item => {
+          const onDelete = () => deleteTask(item.id)
+          const onUpdate = () => updateTask(item.id)
+          return (
+            <Task onDelete={onDelete} onUpdate={onUpdate} item={item} />
+            )
+          }) : null}
+
+        {isTaskModalOpen ? <ModalWrapper close={closeNewTask}><TaskForm addTask={addTask} /></ModalWrapper> : null}
+      </ToDoShell>
     </ToDoWrapper>
   )
 }

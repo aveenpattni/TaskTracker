@@ -4,8 +4,11 @@ const font_sizes = {};
 const line_heights = {};
 //Define your standard base colours here
 const base_colours = {
-  primary: "#DDD",
-  secondary: "black"
+  primary: "#7BD0DC",
+  secondary: "#4385FF",
+  white: "#FAFAFA",
+  black: "#0F0F0F",
+  button: "lightgray"
 };
 
 export const theme = {

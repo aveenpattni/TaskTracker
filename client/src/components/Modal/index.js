@@ -24,10 +24,12 @@ const ContentWrapper = styled.div`
     minWidth: ["128px"]
   })}
 `;
+const CloseButton = styled.button``;
 
-export const ModalWrapper = ({children}) => {
+export const ModalWrapper = ({close, children}) => {
   return (
     <ModalWrapperStyled>
+      <CloseButton onClick={close}>X</CloseButton>
       <ContentWrapper>
         {children}
       </ContentWrapper>

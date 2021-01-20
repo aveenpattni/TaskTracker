@@ -13,7 +13,6 @@ const u = units;
 
 const AppWrapper = styled.div`
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,7 +24,7 @@ const AppWrapper = styled.div`
 class App extends React.Component {
   state = {
     user: {},
-    isLoggedIn: false,
+    isLoggedIn: true,
     loginFail: false
   }
 
