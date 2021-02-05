@@ -14,10 +14,12 @@ const ToDoWrapper = styled.div`
 `;
 const ToDoShell = styled.div`
   width: 100%;
-  max-width: 1080px;
   display:flex;
   flex-direction: column;
   align-items: center;
+  ${units({
+    maxWidth: [0, 1, 2]
+  })}
 `;
 const TaskHeader = styled.h1`
   margin: 16px;
@@ -25,11 +27,33 @@ const TaskHeader = styled.h1`
 const NewTask = styled.button`
   align-self: flex-start;
 `;
+const TaskTable = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  ${units({
+    flexDirection: ["column", "row", "row"],
+    justifyContent: ["flex-start", "space-between", "space-between"],
+  })}
+`;
+const TaskCol = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: flex-start
+`;
 const DeleteButton = styled.button``;
 const UpdateButton = styled.button``;
 
 export const ToDoPage = ({authenticate, user}) => {
-  const [taskList, setTaskList] = useState([]);
+  const [sortedTaskList, setSortedTaskList] = useState({
+    toDo: [],
+    inProgress: [],
+    done: []
+  });
   const [isTaskModalOpen, toggleTaskModal] = useState(false);
 
   useEffect(() => {
@@ -40,7 +64,11 @@ export const ToDoPage = ({authenticate, user}) => {
     };
     axios.get(`/tasks`, config)
       .then(tasks => {
-        setTaskList(tasks.data)
+        setSortedTaskList({
+          toDo: tasks.data.filter(i=>i.status===0),
+          inProgress: tasks.data.filter(i=>i.status===1),
+          done: tasks.data.filter(i=>i.status===2)
+        });
       })
       .catch(err => {
         console.log(err);
@@ -77,7 +105,10 @@ export const ToDoPage = ({authenticate, user}) => {
         const newTask = res.data.task;
         toggleTaskModal(false);
         // Fix this below
-        setTaskList(taskList.concat([newTask]));
+        setSortedTaskList({
+          ...sortedTaskList,
+          toDo: sortedTaskList.toDo.concat([newTask])
+        });
       })
       .catch(err => console.log(err))
   };
@@ -93,7 +124,13 @@ export const ToDoPage = ({authenticate, user}) => {
       }
     };
     axios(taskConfig)
-      .then(res => setTaskList(taskList.filter(i => i.id !== task)))
+      .then(res => {
+        setSortedTaskList({
+          toDo: sortedTaskList.toDo.filter(i => i.id !== task),
+          inProgress: sortedTaskList.inProgress.filter(i => i.id !== task),
+          done: sortedTaskList.done.filter(i => i.id !== task),
+        });
+      })
       .catch(err => console.log(err))
   };
 
@@ -108,15 +145,32 @@ export const ToDoPage = ({authenticate, user}) => {
         <NewTask onClick={newTaskClick}>
           New Task
         </NewTask>
-
-        {taskList.length > 0 ? taskList.map(item => {
-          const onDelete = () => deleteTask(item.id)
-          const onUpdate = () => updateTask(item.id)
-          return (
-            <Task onDelete={onDelete} onUpdate={onUpdate} item={item} />
-            )
-          }) : null}
-
+        <TaskTable>
+          <TaskCol>
+            To Do
+            {sortedTaskList.toDo.map(item=>{
+              const onDelete = () => deleteTask(item.id)
+              const onUpdate = () => updateTask(item.id)
+              return <Task onDelete={onDelete} onUpdate={onUpdate} item={item} />
+            })}
+          </TaskCol>
+          <TaskCol>
+            In Progress
+            {sortedTaskList.inProgress.map(item=>{
+              const onDelete = () => deleteTask(item.id)
+              const onUpdate = () => updateTask(item.id)
+              return <Task onDelete={onDelete} onUpdate={onUpdate} item={item} />
+            })}
+          </TaskCol>
+          <TaskCol>
+            Done
+            {sortedTaskList.done.map(item=>{
+              const onDelete = () => deleteTask(item.id)
+              const onUpdate = () => updateTask(item.id)
+              return <Task onDelete={onDelete} onUpdate={onUpdate} item={item} />
+            })}
+          </TaskCol>
+        </TaskTable>
         {isTaskModalOpen ? <ModalWrapper close={closeNewTask}><TaskForm addTask={addTask} /></ModalWrapper> : null}
       </ToDoShell>
     </ToDoWrapper>

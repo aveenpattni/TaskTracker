@@ -14,7 +14,7 @@ const base_colours = {
 export const theme = {
   breakpoints: [640, 960],
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
-  maxWidths: [480, 960, 1440],
+  maxWidths: [480, 960, 1080, 1440],
   fontWeights: {
     normal: "400",
     bold: "500"
