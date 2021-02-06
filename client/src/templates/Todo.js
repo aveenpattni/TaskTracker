@@ -45,8 +45,6 @@ const TaskCol = styled.div`
   align-items: center;
   align-self: flex-start
 `;
-const DeleteButton = styled.button``;
-const UpdateButton = styled.button``;
 
 export const ToDoPage = ({authenticate, user}) => {
   const [sortedTaskList, setSortedTaskList] = useState({
