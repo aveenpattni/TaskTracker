@@ -132,8 +132,26 @@ export const ToDoPage = ({authenticate, user}) => {
       .catch(err => console.log(err))
   };
 
-  const updateTask = task => {
-    console.log(task);
+  const updateTask = e => {
+    const token = localStorage.getItem("jwt") || '';
+    const taskBody = {
+      // title: e.target.taskTitle.value,
+      // description: e.target.taskDescription.value,
+      // priority: e.target.taskPriority.value,
+      // due: e.target.taskDD.value,
+      // id: e.target.taskId.value,
+      // status: e.target.status.value
+    };
+    const taskConfig = {
+      method: "put",
+      url: `/task/update`,
+      data: taskBody,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token
+      }
+    };
+    console.log(e, taskConfig);
   }
 
   return (

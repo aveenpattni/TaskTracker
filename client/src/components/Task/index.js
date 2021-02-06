@@ -4,6 +4,7 @@ import units from "design-units";
 import { status } from "./constants";
 import { ModalWrapper } from "../Modal";
 import { DeleteConfirm } from "../DeleteConfirm";
+import { UpdateConfirm } from "../UpdateConfirm";
 
 const TaskWrapper = styled.div`
   display:flex;
@@ -42,12 +43,12 @@ export const Task = ({onDelete, onUpdate, item}) => {
       <DeleteButton onClick={openDeleteModal}>Delete</DeleteButton>
       <UpdateButton onClick={openUpdateModal}>Update</UpdateButton>
       {isDeleteModalOpen ?
-        <ModalWrapper close={closeModal} onDelete={onDelete}>
+        <ModalWrapper close={closeModal}>
           <DeleteConfirm onDelete={onDelete} close={closeModal}/>
         </ModalWrapper> : null}
       {isUpdateModalOpen ?
-        <ModalWrapper close={closeModal} onUpdate={onUpdate}>
-          hi
+        <ModalWrapper close={closeModal}>
+          <UpdateConfirm onUpdate={onUpdate} close={closeModal}/>
         </ModalWrapper> : null}
     </TaskWrapper>
   )
