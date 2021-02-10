@@ -132,27 +132,16 @@ export const ToDoPage = ({authenticate, user}) => {
       .catch(err => console.log(err))
   };
 
-  const updateTask = e => {
-    const token = localStorage.getItem("jwt") || '';
-    const taskBody = {
-      // title: e.target.taskTitle.value,
-      // description: e.target.taskDescription.value,
-      // priority: e.target.taskPriority.value,
-      // due: e.target.taskDD.value,
-      // id: e.target.taskId.value,
-      // status: e.target.status.value
+  const updateTask = (taskBody) => {
+    const newStatus = taskBody.status === "2" ? "done" : (taskBody.status === "1" ? "inProgress" : "toDo");
+    const newTaskList = {
+      toDo: sortedTaskList.toDo.filter(i=>i.id!==taskBody.id),
+      inProgress: sortedTaskList.inProgress.filter(i=>i.id!==taskBody.id),
+      done: sortedTaskList.done.filter(i=>i.id!==taskBody.id)
     };
-    const taskConfig = {
-      method: "put",
-      url: `/task/update`,
-      data: taskBody,
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token
-      }
-    };
-    console.log(e, taskConfig);
-  }
+    newTaskList[newStatus].unshift(taskBody);
+    setSortedTaskList(newTaskList);
+  };
 
   return (
     <ToDoWrapper>
@@ -166,24 +155,24 @@ export const ToDoPage = ({authenticate, user}) => {
             To Do
             {sortedTaskList.toDo.map(item=>{
               const onDelete = () => deleteTask(item.id)
-              const onUpdate = () => updateTask(item.id)
-              return <Task onDelete={onDelete} onUpdate={onUpdate} item={item} />
+              const onUpdate = taskBody => updateTask(taskBody)
+              return <Task onDelete={onDelete} onUpdate={onUpdate} item={item} col={0}/>
             })}
           </TaskCol>
           <TaskCol>
             In Progress
             {sortedTaskList.inProgress.map(item=>{
               const onDelete = () => deleteTask(item.id)
-              const onUpdate = () => updateTask(item.id)
-              return <Task onDelete={onDelete} onUpdate={onUpdate} item={item} />
+              const onUpdate = taskBody => updateTask(taskBody)
+              return <Task onDelete={onDelete} onUpdate={onUpdate} item={item} col={1}/>
             })}
           </TaskCol>
           <TaskCol>
             Done
             {sortedTaskList.done.map(item=>{
               const onDelete = () => deleteTask(item.id)
-              const onUpdate = () => updateTask(item.id)
-              return <Task onDelete={onDelete} onUpdate={onUpdate} item={item} />
+              const onUpdate = taskBody => updateTask(taskBody)
+              return <Task onDelete={onDelete} onUpdate={onUpdate} item={item} col={2}/>
             })}
           </TaskCol>
         </TaskTable>

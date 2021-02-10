@@ -4,7 +4,7 @@ import units from "design-units";
 import { status } from "./constants";
 import { ModalWrapper } from "../Modal";
 import { DeleteConfirm } from "../DeleteConfirm";
-import { UpdateConfirm } from "../UpdateConfirm";
+import { UpdateForm } from "../UpdateForm";
 
 const TaskWrapper = styled.div`
   display:flex;
@@ -22,7 +22,7 @@ const TaskWrapper = styled.div`
 const DeleteButton = styled.button``;
 const UpdateButton = styled.button``;
 
-export const Task = ({onDelete, onUpdate, item}) => {
+export const Task = ({onDelete, onUpdate, item, col}) => {
   const [isDeleteModalOpen, toggleDeleteModal] = useState(false);
   const [isUpdateModalOpen, toggleUpdateModal] = useState(false);
   const closeModal = e => {
@@ -37,9 +37,11 @@ export const Task = ({onDelete, onUpdate, item}) => {
   }
 
   return (
-    <TaskWrapper status={item.status}>
+    <TaskWrapper status={col}>
       <h5>{item.title}</h5>
-      <p>{status[item.status]}</p>
+      <p>{item.description}</p>
+      <p>{item.priority}</p>
+      <p>{item.due}</p>
       <DeleteButton onClick={openDeleteModal}>Delete</DeleteButton>
       <UpdateButton onClick={openUpdateModal}>Update</UpdateButton>
       {isDeleteModalOpen ?
@@ -48,7 +50,7 @@ export const Task = ({onDelete, onUpdate, item}) => {
         </ModalWrapper> : null}
       {isUpdateModalOpen ?
         <ModalWrapper close={closeModal}>
-          <UpdateConfirm onUpdate={onUpdate} close={closeModal}/>
+          <UpdateForm onUpdate={onUpdate} close={closeModal} item={item}/>
         </ModalWrapper> : null}
     </TaskWrapper>
   )
