@@ -5,6 +5,7 @@ import { status } from "./constants";
 import { ModalWrapper } from "../Modal";
 import { DeleteConfirm } from "../DeleteConfirm";
 import { UpdateForm } from "../UpdateForm";
+import { Button as CustomButton } from "../Button";
 
 const TaskWrapper = styled.div`
   display:flex;
@@ -14,13 +15,51 @@ const TaskWrapper = styled.div`
   margin: 8px;
   width: 100%;
   background: ${props => (
-    props.status === 2 ? "green" : (props.status === 1 ? "#7BD0DC" : "red")
+    props.status === 2 ? "#a8ffa8" : (props.status === 1 ? "#a8a8ff" : "#ffa8a8")
   )}
   ${units({
   })}
 `;
-const DeleteButton = styled.button``;
-const UpdateButton = styled.button``;
+const TaskTitle = styled.h3`
+  margin: 0;
+  padding: 0;
+  align-self: center;
+`;
+const TaskDescription = styled.p`
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+  border-radius: 4px;
+  ${units({
+    backgroundColor: "white",
+    padding: ["1"]
+  })}
+`;
+const TaskPriority = styled.h4`
+  margin: 0;
+  padding: 0;
+`;
+const TaskDueDate = styled.h4`
+  margin: 0;
+  padding: 0;
+`;
+const InfoZone = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${units({
+    padding: ["1"]
+  })}
+`;
+const ButtonZone = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${units({
+    padding: ["1"]
+  })}
+`;
+
+const DeleteButton = styled(CustomButton)``;
+const UpdateButton = styled(CustomButton)``;
 
 export const Task = ({onDelete, onUpdate, item, col}) => {
   const [isDeleteModalOpen, toggleDeleteModal] = useState(false);
@@ -35,15 +74,20 @@ export const Task = ({onDelete, onUpdate, item, col}) => {
   const openUpdateModal = () => {
     toggleUpdateModal(true);
   }
-
+  const date = new Date(item.due)
   return (
     <TaskWrapper status={col}>
-      <h5>{item.title}</h5>
-      <p>{item.description}</p>
-      <p>{item.priority}</p>
-      <p>{item.due}</p>
+      <TaskTitle>{item.title}</TaskTitle>
+      <TaskDescription>{item.description}</TaskDescription>
+      <InfoZone>
+        <TaskPriority>Priority: {item.priority}</TaskPriority>
+        <TaskDueDate>Due: {date.toDateString()}</TaskDueDate>
+      </InfoZone>
+      <ButtonZone>
       <DeleteButton onClick={openDeleteModal}>Delete</DeleteButton>
       <UpdateButton onClick={openUpdateModal}>Update</UpdateButton>
+      </ButtonZone>
+
       {isDeleteModalOpen ?
         <ModalWrapper close={closeModal}>
           <DeleteConfirm onDelete={onDelete} close={closeModal}/>

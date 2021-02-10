@@ -103,7 +103,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/" exact render={() => { return this.state.isLoggedIn ? <Redirect to='/todo' /> : <Redirect to='/login' /> }} />
           <Route path="/login" >
-            <LoginPage loginFail sendLogin={this.submitLogin}/>
+            <LoginPage loginFail={this.state.loginFail} sendLogin={this.submitLogin}/>
           </Route>
           <Route path="/signup" >
             <SignupPage />

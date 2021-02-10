@@ -52,8 +52,8 @@ export const Header = ({logout, isLoggedIn, user}) => {
       <HeaderShell>
         <LogoSection>Task Tracker✔️</LogoSection>
         <ButtonSection>
-          {isLoggedIn ? <Name>{fName}</Name> : null}
-          {isLoggedIn ?
+          {isLoggedIn && user.firstName ? <Name>{fName}</Name> : null}
+          {isLoggedIn && user.firstName ?
             <LogoutButton onClick={logout}>Sign Out</LogoutButton>
             : null}
         </ButtonSection>
