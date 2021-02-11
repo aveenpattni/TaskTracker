@@ -1,6 +1,7 @@
 const express = require("express");
 const isAuthenticated = require('../middleware/token');
 const router = express.Router();
+const {v4: uuidv4} = require("uuid");
 
 const db = require('../models');
 const Tasks = db.Tasks;
@@ -10,8 +11,9 @@ router.use(isAuthenticated);
 
 router.post("/add", (req, res) => {
   const {uID, title, description, priority, due} = req.body;
-
+  const id = uuidv4();
   Tasks.create({
+    id,
     uID,
     title,
     description,

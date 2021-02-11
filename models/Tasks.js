@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Tasks = sequelize.define('Tasks', {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true
     },
     uID: DataTypes.UUIDV4,

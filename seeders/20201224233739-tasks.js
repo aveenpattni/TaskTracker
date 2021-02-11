@@ -13,6 +13,7 @@ module.exports = {
       }], {});
     */
     return queryInterface.bulkInsert("Tasks", [{
+      id: "1",
       uID: 1,
       title: "Finish Back End",
       description: "Finish all end points and database for Task Tracker",
@@ -23,6 +24,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id: "2",
       uID: 1,
       title: "Finish Front End",
       description: "Add login and task page. Create tasks with a modal. Edit taks with a separeate modal.",
