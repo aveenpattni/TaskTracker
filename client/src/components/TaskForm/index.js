@@ -8,7 +8,7 @@ const TaskFormWrapper = styled.form`
   justify-content: center;
   ${units({
     padding: ["3", "4", "5"],
-    backgroundColor: "primary"
+    backgroundColor: "lightgray"
   })}
 `;
 const FormLabel = styled.label`

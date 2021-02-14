@@ -14,11 +14,11 @@ const SignupWrapper = styled.div`
 
 const SignupHeader = styled.h2``;
 
-export const SignupPage = () => {
+export const SignupPage = ({ sendSignup }) => {
   return (
     <SignupWrapper>
       <SignupHeader>Sign Up</SignupHeader>
-      <SignupForm />
+      <SignupForm sendSignup={sendSignup}/>
     </SignupWrapper>
   )
 }

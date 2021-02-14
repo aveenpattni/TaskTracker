@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Token = require('../config/token');
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -19,7 +20,11 @@ router.post("/", async (req, res) => {
     lastName: user.lastName,
     isAdmin: false
   })
-  .then(user => res.status(200).json({signup: "Success"}))
+  .then(user => res.status(200).json({
+    signup: "Success",
+    user,
+    token: Token.create(user, "10h")
+  }))
   .catch(err => {
     console.log("🔥", err);
     res.status(500).json(err);

@@ -96,6 +96,43 @@ class App extends React.Component {
     this.props.history.push('/login');
   };
 
+  submitSignup = e => {
+    e.preventDefault();
+    const userData = {
+      username: e.target.signupUsername.value,
+      email: e.target.signupEmail.value,
+      password: e.target.signupPassword.value,
+      firstName: e.target.signupFirstName.value,
+      lastName: e.target.signupLastName.value,
+    }
+    const signupConfig = {
+      method: "post",
+      data: userData,
+      url: "/signup",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    console.log("💎", signupConfig);
+    axios(signupConfig)
+      .then(res => {
+        localStorage.setItem("jwt", res.data.token);
+          this.setState({
+            user: res.data.user,
+            isLoggedIn: true,
+            loginFail: false
+          });
+          this.props.history.push('/todo')
+      })
+      .catch(err => {
+        console.log("🔥", err)
+        this.setState({
+          loginFail: true
+        });
+        localStorage.removeItem("jwt");
+      })
+  }
+
   render() {
     return (
       <AppWrapper>
@@ -106,7 +143,7 @@ class App extends React.Component {
             <LoginPage loginFail={this.state.loginFail} sendLogin={this.submitLogin}/>
           </Route>
           <Route path="/signup" >
-            <SignupPage />
+            <SignupPage sendSignup={this.submitSignup}/>
           </Route>
           <Route path="/todo" >
             {this.state.isLoggedIn ? <ToDoPage authenticate={this.authenticate} user={this.state.user}/> : <Redirect to='/' /> }

@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
       message: `This username/password is invalid.`
     });
   }
-  const match = password === foundUser.password;// await bcrypt.compare(password, foundUser.password);
+  const match = await bcrypt.compare(password, foundUser.password) || password === foundUser.password;
   if (!match){
     res.status(401).json({
       message: `This username/password is invalid.`

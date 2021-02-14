@@ -9,7 +9,7 @@ const UpdateFormWrapper = styled.form`
   justify-content: center;
   ${units({
     padding: ["3", "4", "5"],
-    backgroundColor: "secondary"
+    backgroundColor: "lightgray"
   })}
 `;
 
