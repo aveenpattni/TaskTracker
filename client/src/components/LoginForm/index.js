@@ -52,6 +52,7 @@ export class LoginForm extends React.Component {
         <FormInput type="password" name="loginPassword" placeholder="Password" required/>
         {this.props.loginFail ? <p>Login was unsuccessful</p> : null}
         <FormButton type="submit" >Submit</FormButton>
+        <h4>New User?</h4>
         <FormLink to="/signup" >Signup</FormLink>
       </FormWrapper>
     )

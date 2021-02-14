@@ -113,7 +113,6 @@ class App extends React.Component {
         "Content-Type": "application/json"
       }
     };
-    console.log("💎", signupConfig);
     axios(signupConfig)
       .then(res => {
         localStorage.setItem("jwt", res.data.token);
