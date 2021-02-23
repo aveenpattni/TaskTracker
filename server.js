@@ -2,7 +2,8 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
+const cors = require("cors");
 
 // Define Constants
 const PORT = process.env.PORT || 8000;
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 // Log requests to the console
 app.use(logger('dev'));
+app.use(cors());
 // Set up routes
 app.use("/login", require("./routes/login.js"));
 app.use("/signup", require("./routes/signup.js"));

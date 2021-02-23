@@ -1,14 +1,41 @@
 import React from 'react'
 import styled from "@emotion/styled";
 import units from "design-units";
+import { Link } from "react-router-dom";
 
 const SignupFormWrapper = styled.form`
   display: flex;
   flex-direction: column;
 `;
-const FormInput = styled.input``;
-const FormLabel = styled.label``;
-const FormButton = styled.button``;
+const FormInput = styled.input`
+  ${units({
+    margin: 1,
+    padding: 1
+  })}
+`;
+const FormLabel = styled.label`
+  text-align: center;
+`;
+const FormButton = styled.button`
+  ${units({
+    marginTop: 1,
+    marginBottom: 1,
+    padding: 1
+  })}
+`;
+const FormLink = styled(Link)`
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  ${units({
+    marginBottom: ["1"],
+    backgroundColor: "secondary",
+    color: "black",
+    padding: 1
+  })}
+`;
 
 export class SignupForm extends React.Component {
   constructor(props) {
@@ -33,7 +60,9 @@ export class SignupForm extends React.Component {
         <FormLabel>Password:</FormLabel>
         <FormInput name="signupPassword" type="password" placeholder="Password" required/>
 
-        <FormButton type="submit"> Submit</FormButton>
+        <FormButton type="submit">Sign Up</FormButton>
+        <h4>Returning User?</h4>
+        <FormLink to="/login" >Login</FormLink>
       </SignupFormWrapper>
     )
   }
