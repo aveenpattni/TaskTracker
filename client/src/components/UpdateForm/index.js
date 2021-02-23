@@ -79,7 +79,7 @@ export class UpdateForm extends React.Component {
     };
     const taskConfig = {
       method: "put",
-      url: `/task/update`,
+      url: `/api/task/update`,
       data: taskBody,
       headers: {
         "Content-Type": "application/json",

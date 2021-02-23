@@ -34,7 +34,7 @@ class App extends React.Component {
       const config = {
         headers: { authorization: token }
       }
-      axios.get(`/auth`, config)
+      axios.get(`/api/auth`, config)
         .then(res => {
           this.setState({
             isLoggedIn: true,
@@ -63,7 +63,7 @@ class App extends React.Component {
     const loginConfig = {
       method: "post",
       data: credentials,
-      url: "/login",
+      url: "/api/login",
       headers: {
         "Content-Type": "application/json"
       }
@@ -108,7 +108,7 @@ class App extends React.Component {
     const signupConfig = {
       method: "post",
       data: userData,
-      url: "/signup",
+      url: "/api/signup",
       headers: {
         "Content-Type": "application/json"
       }

@@ -60,7 +60,7 @@ export const ToDoPage = ({authenticate, user}) => {
     const config = {
       headers: {authorization: token}
     };
-    axios.get(`/tasks`, config)
+    axios.get(`/api/tasks`, config)
       .then(tasks => {
         setSortedTaskList({
           toDo: tasks.data.filter(i=>i.status===0),
@@ -92,7 +92,7 @@ export const ToDoPage = ({authenticate, user}) => {
     const taskConfig = {
       method: "post",
       data: task,
-      url: "/task/add",
+      url: "/api/task/add",
       headers: {
         "Content-Type": "application/json",
         authorization: token
@@ -115,7 +115,7 @@ export const ToDoPage = ({authenticate, user}) => {
     const token = localStorage.getItem("jwt") || '';
     const taskConfig = {
       method: "delete",
-      url: `/task/remove?id=${task}`,
+      url: `/api/task/remove?id=${task}`,
       headers: {
         "Content-Type": "application/json",
         authorization: token

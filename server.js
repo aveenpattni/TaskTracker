@@ -17,11 +17,11 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(logger('dev'));
 app.use(cors());
 // Set up routes
-app.use("/login", require("./routes/login.js"));
-app.use("/signup", require("./routes/signup.js"));
-app.use("/tasks", require("./routes/tasks.js"));
-app.use("/task", require("./routes/task.js"));
-app.use("/auth", require("./routes/auth.js"));
+app.use("/api/login", require("./routes/login.js"));
+app.use("/api/signup", require("./routes/signup.js"));
+app.use("/api/tasks", require("./routes/tasks.js"));
+app.use("/api/task", require("./routes/task.js"));
+app.use("/api/auth", require("./routes/auth.js"));
 
 // Route setup
 app.get("*", (req, res) => {
