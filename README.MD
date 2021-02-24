@@ -1,6 +1,8 @@
 This project was created by Aveen Pattni to provide a template for express react apps.
 This template is formed with Styled Emotion components using design-units
 
+### App deployed at [https://task-tracker-mysql.herokuapp.com](https://task-tracker-mysql.herokuapp.com)
+
 ## How to run app
 
 Clone to your machine. First run `npm i`. Then build with `npm build`. Then start the app with `npm start`.
