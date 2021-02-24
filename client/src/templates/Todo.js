@@ -71,6 +71,7 @@ export const ToDoPage = ({authenticate, user}) => {
       .catch(err => {
         console.log(err);
       });
+      // eslint-disable-next-line
   }, []);
 
   const newTaskClick = e => {

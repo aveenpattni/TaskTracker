@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from "@emotion/styled";
 import units from "design-units";
-import { Link } from "react-router-dom";
 import { Button } from "../Button";
-import { CustomLink } from "../Link";
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -50,7 +48,7 @@ export const Header = ({logout, isLoggedIn, user}) => {
     <>
     <HeaderWrapper>
       <HeaderShell>
-        <LogoSection>Task Tracker✔️</LogoSection>
+        <LogoSection>Task Tracker</LogoSection>
         <ButtonSection>
           {isLoggedIn && user.firstName ? <Name>{fName}</Name> : null}
           {isLoggedIn ?

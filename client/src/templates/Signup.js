@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "@emotion/styled";
-import units from "design-units";
 import { SignupForm } from "../components/SignupForm";
 
 const SignupWrapper = styled.div`

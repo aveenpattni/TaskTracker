@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from "@emotion/styled";
 import units from "design-units";
-import { status } from "./constants";
 import { ModalWrapper } from "../Modal";
 import { DeleteConfirm } from "../DeleteConfirm";
 import { UpdateForm } from "../UpdateForm";

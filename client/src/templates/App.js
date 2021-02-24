@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "@emotion/styled";
 import units from "design-units";
-import { Switch, Route, Redirect, Link, withRouter } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { LoginPage } from "./Login";
 import { ToDoPage } from "./Todo";
 import { LostPage } from "./Lost";
