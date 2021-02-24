@@ -2,7 +2,7 @@
   "name": "react-express",
   "version": "1.0.0",
   "main": "server.js",
-  "author": "Aveen Pattni <aveen.pattni@walmart.com>",
+  "author": "Aveen Pattni <aveenpattni@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -21,10 +21,10 @@
   },
   "scripts": {
     "bootstrap": "npm install && cd client && npm i && npm run build",
-    "start": "nodemon .",
+    "start": "node server.js",
     "start-client": "cd client && npm run start",
     "build": "cd client && npm install && npm run build",
-    "build-start": "cd client && npm run build && cd .. && nodemon ."
+    "build-start": "cd client && npm run build && cd .. && node server.js"
   },
   "proxy": "http://localhost:8000",
   "engines": {

@@ -8,9 +8,7 @@
     "dialect": "mysql"
   },
   "production": {
-    "HOST": "us-cdbr-east-03.cleardb.com",
-    "USER": "bf9a1c0a49f66b",
-    "PASSWORD": "15e62a07",
-    "DB": "heroku_c0c57510d99d500"
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "mysql"
   }
 }
