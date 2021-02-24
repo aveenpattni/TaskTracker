@@ -20,11 +20,11 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "bootstrap": "yarn && cd client && yarn && yarn run build",
+    "bootstrap": "npm i && cd client && npm i && npm run build",
     "start": "nodemon .",
-    "start-client": "cd client && yarn start",
-    "build": "cd client && yarn run build",
-    "build-start": "cd client && yarn run build && cd .. && nodemon ."
+    "start-client": "cd client && npm run start",
+    "build": "cd client && npm run build",
+    "build-start": "cd client && npm run build && cd .. && nodemon ."
   },
   "proxy": "http://localhost:8000"
 }
