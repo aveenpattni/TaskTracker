@@ -30,20 +30,22 @@ const NewTask = styled.button`
 const TaskTable = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   ${units({
     flexDirection: ["column", "row", "row"],
-    justifyContent: ["flex-start", "space-between", "space-between"],
+    justifyContent: ["flex-start", "space-evenly", "space-evenly"],
+    padding: ["4px", 0, 0]
   })}
 `;
 const TaskCol = styled.div`
-  width: 30%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  align-self: flex-start
+  ${units({
+    alignSelf: ["center", "flex-start", "flex-start"],
+    width: ["90%", "30%", "30%"]
+  })}
 `;
 
 export const ToDoPage = ({authenticate, user}) => {
