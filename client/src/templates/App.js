@@ -24,7 +24,7 @@ const AppWrapper = styled.div`
 class App extends React.Component {
   state = {
     user: {},
-    isLoggedIn: true,
+    isLoggedIn: false,
     loginFail: false
   }
 
@@ -132,6 +132,10 @@ class App extends React.Component {
       })
   }
 
+  componentDidMount() {
+    this.authenticate();
+  }
+
   render() {
     return (
       <AppWrapper>
@@ -139,7 +143,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/" exact render={() => { return this.state.isLoggedIn ? <Redirect to='/todo' /> : <Redirect to='/login' /> }} />
           <Route path="/login" >
-            <LoginPage loginFail={this.state.loginFail} sendLogin={this.submitLogin}/>
+            {this.state.isLoggedIn ? <Redirect to='/todo' /> : <LoginPage loginFail={this.state.loginFail} sendLogin={this.submitLogin}/>}
           </Route>
           <Route path="/signup" >
             <SignupPage sendSignup={this.submitSignup}/>
