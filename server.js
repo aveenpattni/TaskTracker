@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const Sequelize = require("sequelize");
 const cors = require("cors");
+require("dotenv").config();
 
 // Define Constants
 const PORT = process.env.PORT || 8000;
@@ -22,7 +23,7 @@ app.use("/api/signup", require("./routes/signup.js"));
 app.use("/api/tasks", require("./routes/tasks.js"));
 app.use("/api/task", require("./routes/task.js"));
 app.use("/api/auth", require("./routes/auth.js"));
-app.use("/api/photo-upload", require("./routes/photo-upload"));
+app.use("/api/photo-upload", require("./routes/photo-upload.js"));
 
 // Route setup
 app.get("*", (req, res) => {
