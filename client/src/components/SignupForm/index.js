@@ -2,6 +2,12 @@ import React from 'react'
 import styled from "@emotion/styled";
 import units from "design-units";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+const SignupWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 const SignupFormWrapper = styled.form`
   display: flex;
@@ -37,12 +43,29 @@ const FormLink = styled(Link)`
   })}
 `;
 
-const FormUpload = styled.input``;
+const UploadWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const FormUpload = styled.input`
+  display: none;
+`;
+const UploadLabel = styled.label`
+  margin-top: 2rem;
+  border: 1px solid black;
+  border-radius: 8px;
+  text-align: center;
+`
+const FormUploadButton = styled.button``;
+
 export class SignupForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userPicture: null
+      userPicture: null,
+      imageUrl: null,
+      uploadStatus: null
     }
     this.formRef = React.createRef();
   }
@@ -59,38 +82,67 @@ export class SignupForm extends React.Component {
     this.props.sendSignup(userData);
   }
 
-  uploadImage = (e) => {
+  setImage = (e) => {
     this.setState({
       userPicture: e.target.files[0]
+    });
+  }
+  uploadImage = () => {
+    const fd = new FormData();
+    fd.append("image", this.state.userPicture);
+    axios.post("/api/photo-upload", fd, {
+      onUploadProgress: progressEvent => {
+        console.log(`Upload Progress: ${(progressEvent.loaded/progressEvent.total)*100}%`);
+        this.setState({
+          ...this.state,
+          uploadStatus: (progressEvent.loaded/progressEvent.total)*100
+        })
+      }
     })
-    console.log("🔥", e.target.files[0])
+    .then(res => this.setState({
+      ...this.state,
+      imageUrl: res.data.imageUrl,
+      uploadStatus: "success"
+    }))
+    .catch(err => this.setState({
+      ...this.state,
+      imageUrl: null,
+      uploadStatus: "fail"
+    }));
   }
 
   render() {
-    console.log(this.state);
     return (
-      <SignupFormWrapper ref={this.formRef} onSubmit={this.signup}>
-        <FormLabel>First Name:</FormLabel>
-        <FormInput name="signupFirstName" placeholder="First Name" required/>
+      <SignupWrapper>
+        <SignupFormWrapper ref={this.formRef} onSubmit={this.signup}>
+          <FormLabel>First Name:</FormLabel>
+          <FormInput name="signupFirstName" placeholder="First Name" required/>
 
-        <FormLabel>Last Name:</FormLabel>
-        <FormInput name="signupLastName" placeholder="Last Name" required/>
+          <FormLabel>Last Name:</FormLabel>
+          <FormInput name="signupLastName" placeholder="Last Name" required/>
 
-        <FormLabel>Email:</FormLabel>
-        <FormInput name="signupEmail" type="email" placeholder="Email" required/>
+          <FormLabel>Email:</FormLabel>
+          <FormInput name="signupEmail" type="email" placeholder="Email" required/>
 
-        <FormLabel>Username:</FormLabel>
-        <FormInput name="signupUsername" placeholder="Username" required/>
+          <FormLabel>Username:</FormLabel>
+          <FormInput name="signupUsername" placeholder="Username" required/>
 
-        <FormLabel>Password:</FormLabel>
-        <FormInput name="signupPassword" type="password" placeholder="Password" required/>
+          <FormLabel>Password:</FormLabel>
+          <FormInput name="signupPassword" type="password" placeholder="Password" required/>
+          
+          <FormButton type="submit">Sign Up</FormButton>
 
-        <FormUpload name="profilePhoto" type="file" onChange={this.uploadImage} />
+        </SignupFormWrapper>
 
-        <FormButton type="submit">Sign Up</FormButton>
+        <UploadWrapper>
+          <UploadLabel for="file">Upload Profile Picture</UploadLabel>
+          <FormUpload id="file" name="profilePhoto" type="file" onChange={this.setImage} />
+          {this.state.userPicture ? <FormUploadButton onClick={this.uploadImage}>Upload</FormUploadButton> : null}
+        </UploadWrapper>
+
         <h4>Returning User?</h4>
         <FormLink to="/login" >Login</FormLink>
-      </SignupFormWrapper>
+      </SignupWrapper>
     )
   }
 }
