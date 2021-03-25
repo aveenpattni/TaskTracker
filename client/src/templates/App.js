@@ -96,15 +96,7 @@ class App extends React.Component {
     this.props.history.push('/login');
   };
 
-  submitSignup = e => {
-    e.preventDefault();
-    const userData = {
-      username: e.target.signupUsername.value,
-      email: e.target.signupEmail.value,
-      password: e.target.signupPassword.value,
-      firstName: e.target.signupFirstName.value,
-      lastName: e.target.signupLastName.value,
-    }
+  submitSignup = userData => {
     const signupConfig = {
       method: "post",
       data: userData,

@@ -22,6 +22,7 @@ app.use("/api/signup", require("./routes/signup.js"));
 app.use("/api/tasks", require("./routes/tasks.js"));
 app.use("/api/task", require("./routes/task.js"));
 app.use("/api/auth", require("./routes/auth.js"));
+app.use("/api/photo-upload", require("./routes/photo-upload"));
 
 // Route setup
 app.get("*", (req, res) => {

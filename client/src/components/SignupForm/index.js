@@ -37,14 +37,39 @@ const FormLink = styled(Link)`
   })}
 `;
 
+const FormUpload = styled.input``;
 export class SignupForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      userPicture: null
+    }
     this.formRef = React.createRef();
   }
+
+  signup = (e) => {
+    e.preventDefault();
+    const userData = {
+      username: e.target.signupUsername.value,
+      email: e.target.signupEmail.value,
+      password: e.target.signupPassword.value,
+      firstName: e.target.signupFirstName.value,
+      lastName: e.target.signupLastName.value
+    }
+    this.props.sendSignup(userData);
+  }
+
+  uploadImage = (e) => {
+    this.setState({
+      userPicture: e.target.files[0]
+    })
+    console.log("🔥", e.target.files[0])
+  }
+
   render() {
+    console.log(this.state);
     return (
-      <SignupFormWrapper ref={this.formRef} onSubmit={this.props.sendSignup}>
+      <SignupFormWrapper ref={this.formRef} onSubmit={this.signup}>
         <FormLabel>First Name:</FormLabel>
         <FormInput name="signupFirstName" placeholder="First Name" required/>
 
@@ -59,6 +84,8 @@ export class SignupForm extends React.Component {
 
         <FormLabel>Password:</FormLabel>
         <FormInput name="signupPassword" type="password" placeholder="Password" required/>
+
+        <FormUpload name="profilePhoto" type="file" onChange={this.uploadImage} />
 
         <FormButton type="submit">Sign Up</FormButton>
         <h4>Returning User?</h4>
