@@ -39,6 +39,11 @@ const Name = styled.h4`
 const LogoSection = styled.div`
   margin: 8px;
 `;
+const HeaderImage = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`
 
 const LogoutButton = styled(Button)``;
 
@@ -50,6 +55,7 @@ export const Header = ({logout, isLoggedIn, user}) => {
       <HeaderShell>
         <LogoSection>Task Tracker</LogoSection>
         <ButtonSection>
+          {isLoggedIn && user.photoUrl ? <HeaderImage src={user.photoUrl}/> : null}
           {isLoggedIn && user.firstName ? <Name>{fName}</Name> : null}
           {isLoggedIn ?
             <LogoutButton onClick={logout}>Sign Out</LogoutButton>
