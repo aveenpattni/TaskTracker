@@ -11,13 +11,14 @@ const Users = db.Users;
 router.post("/", async (req, res) => {
   const user = req.body;
   const hashedPassword =  await bcrypt.hash(user.password, saltRounds);
-
+  
   Users.create({
     username: user.username,
     email: user.email,
     password: hashedPassword,
     firstName: user.firstName,
     lastName: user.lastName,
+    photoUrl: user.photoUrl || "",
     isAdmin: false
   })
   .then(user => res.status(200).json({

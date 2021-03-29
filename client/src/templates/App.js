@@ -47,6 +47,7 @@ class App extends React.Component {
             loginFail: false
           });
           console.log(err);
+          localStorage.removeItem("jwt");
           this.props.history.push('/login');
         });
     } else {

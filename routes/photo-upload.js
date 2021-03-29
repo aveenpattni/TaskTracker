@@ -17,7 +17,7 @@ const storage = multer.memoryStorage({
 const photoUpload = multer({storage}).single("image");
 
 router.post("/", photoUpload, async (req, res) => {
-  const user = "avp"
+  const user = "profile"
   const fileName = req.file.originalname.split(".");
   const fileType = fileName[fileName.length-1];
   const params = {

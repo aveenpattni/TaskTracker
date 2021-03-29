@@ -77,7 +77,8 @@ export class SignupForm extends React.Component {
       email: e.target.signupEmail.value,
       password: e.target.signupPassword.value,
       firstName: e.target.signupFirstName.value,
-      lastName: e.target.signupLastName.value
+      lastName: e.target.signupLastName.value,
+      photoUrl: this.state.imageUrl
     }
     this.props.sendSignup(userData);
   }

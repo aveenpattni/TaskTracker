@@ -27,7 +27,7 @@
     "start": "nodemon server.js",
     "start-client": "cd client && npm run start",
     "build": "cd client && npm install && npm run build",
-    "build-start": "cd client && npm run build && cd .. && node server.js"
+    "build-start": "cd client && npm run build && cd .. && nodemon server.js"
   },
   "proxy": "http://localhost:8000",
   "engines": {
